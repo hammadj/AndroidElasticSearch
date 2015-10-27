@@ -9,6 +9,8 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 import ca.ualberta.ssrg.androidelasticsearch.R;
@@ -17,6 +19,7 @@ public class MainActivity extends Activity {
 
 	private ListView movieList;
 	private Movies movies;
+	private Button searchBtn;
 	private ArrayAdapter<Movie> moviesViewAdapter;
 	private ESMovieManager movieManager;
 	private MoviesController moviesController;
@@ -50,6 +53,7 @@ public class MainActivity extends Activity {
 			}
 
 		});
+
 
 		// Delete movie on long click
 		movieList.setOnItemLongClickListener(new OnItemLongClickListener() {
@@ -100,8 +104,16 @@ public class MainActivity extends Activity {
 	public void search(View view) {
 		movies.clear();
 
+		EditText searchText = (EditText) findViewById(R.id.editText1);
+
+		String query = searchText.getText().toString();
+
+		SearchThread thread = new SearchThread(query);
+
+		thread.start();
+
 		// TODO: Extract search query from text view
-		
+
 		// TODO: Run the search thread
 		
 	}
